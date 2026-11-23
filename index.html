@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Live BSM Agents IA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Page d'inscription courte façon tunnels qui chiffrent : une colonne centrée, titre géant, bouton répété 3 fois, formulaire en fenêtre. Univers BSM : noir + vert sauge lumineux. */
+:root {
+  --bg: #090B09;
+  --bg-2: #111511;
+  --card: #151A15;
+  --line: #263026;
+  --text: #EEF3EC;
+  --muted: #9AA796;
+  --sage: #9DB89A;
+  --glow: #B6E3AE;
+  --live: #FF4D4F;
+  --f-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --f-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--f-body); font-size: 17px; line-height: 1.55;
+  background-image: radial-gradient(900px 500px at 50% -120px, rgba(157,184,154,.22), transparent 70%),
+                    linear-gradient(rgba(157,184,154,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(157,184,154,.05) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.narrow { max-width: 760px; }
+.center { text-align: center; display: flex; flex-direction: column; align-items: center; }
+h1, h2 { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; line-height: 1.02; letter-spacing: .01em; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(34px, 6vw, 64px); }
+.hl { color: var(--glow); text-shadow: 0 0 28px rgba(182,227,174,.45); }
+p { margin: 0; }
+section { padding-block: 64px; }
+.mono { font-family: var(--f-mono); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; }
+
+/* Barre du haut */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(9,11,9,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: #090B09; }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; flex-wrap: wrap; }
+.brand { font-family: var(--f-display); font-size: 22px; letter-spacing: .04em; }
+.brand b { color: var(--glow); font-weight: 400; }
+.live-tag { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 4px rgba(255,77,79,.22); animation: pulse 1.4s ease-in-out infinite; flex: none; }
+@keyframes pulse { 50% { opacity: .3; } }
+
+/* Hero */
+.hero { padding-block: 48px 40px; }
+.hero .center { gap: 22px; }
+.pill { border: 1px solid rgba(182,227,174,.45); color: var(--glow); border-radius: 999px; padding: 7px 14px; background: rgba(157,184,154,.08); }
+.hero h1 { font-size: clamp(42px, 8.2vw, 96px); max-width: 15ch; }
+.sans { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; color: var(--muted); font-size: 16px; }
+.sans span b { color: var(--text); }
+.sans i { color: var(--line); font-style: normal; }
+
+/* Vignette vidéo */
+.thumb { width: 100%; max-width: 820px; aspect-ratio: 16 / 9; border-radius: 18px; border: 1px solid var(--line); position: relative; overflow: hidden;
+  background: radial-gradient(600px 300px at 75% 70%, rgba(157,184,154,.35), transparent 70%), linear-gradient(135deg, #141A14, #0B0E0B);
+  box-shadow: 0 30px 80px -30px rgba(157,184,154,.35); display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; padding: clamp(18px, 4vw, 44px); gap: 16px; text-align: left; }
+.thumb .badge { position: absolute; top: 16px; left: 16px; background: var(--live); color: #fff; font-family: var(--f-mono); font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 6px; letter-spacing: .1em; }
+.thumb .big { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(26px, 5vw, 56px); line-height: .98; }
+.thumb .big span { display: inline-block; background: var(--glow); color: #0A0C0A; padding: 0 .15em; margin-top: 6px; }
+.panel { display: flex; flex-direction: column; gap: 10px; }
+.task { display: flex; align-items: center; gap: 10px; background: rgba(9,11,9,.75); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: clamp(12px, 1.6vw, 15px); }
+.task .ck { width: 20px; height: 20px; border-radius: 50%; background: var(--glow); color: #0A0C0A; display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; }
+.task.run .ck { background: transparent; border: 2px solid var(--glow); border-top-color: transparent; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.play { position: absolute; right: 16px; bottom: 16px; width: 54px; height: 54px; border-radius: 50%; background: rgba(238,243,236,.92); display: grid; place-items: center; }
+.play::after { content: ""; border-left: 16px solid #0A0C0A; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; }
+
+/* Bouton */
+.cta { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; max-width: 560px; border: 0; cursor: pointer; text-decoration: none;
+  background: linear-gradient(180deg, #CFF2C8, #9DB89A); color: #0A0C0A; border-radius: 12px; padding: 18px 22px;
+  box-shadow: 0 0 0 1px rgba(182,227,174,.6), 0 12px 40px -8px rgba(182,227,174,.55); transition: transform .15s ease; }
+.cta:hover { transform: translateY(-2px); }
+.cta:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.cta .t { font-family: var(--f-display); font-size: clamp(22px, 3.4vw, 30px); text-transform: uppercase; letter-spacing: .03em; }
+.cta .s { font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+
+/* Compte à rebours */
+.count { display: flex; gap: 10px; justify-content: center; }
+.count div { min-width: 70px; text-align: center; }
+.count b { font-family: var(--f-display); font-weight: 400; font-size: clamp(34px, 6vw, 52px); color: var(--glow); font-variant-numeric: tabular-nums; display: block; line-height: 1; }
+.count span { font-family: var(--f-mono); font-size: 11px; color: var(--muted); letter-spacing: .12em; }
+
+/* Même si */
+.evenif { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 560px; }
+.evenif div { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--glow); border-radius: 8px; padding: 12px 16px; text-align: left; }
+.evenif .ok { font-family: var(--f-mono); font-size: 11px; color: var(--glow); border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px; }
+
+/* Secrets */
+.secrets { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
+.secret { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+.secret .vis { aspect-ratio: 16 / 10; position: relative; display: grid; place-items: center; background: radial-gradient(260px 140px at 50% 100%, rgba(157,184,154,.3), transparent 70%), #0E120E; border-bottom: 1px solid var(--line); }
+.secret .num { position: absolute; left: 14px; bottom: 8px; font-family: var(--f-display); font-size: 22px; color: var(--glow); text-transform: uppercase; }
+.secret .txt { padding: 18px; font-size: 16px; color: #D7DED4; }
+.secret svg { width: 46%; height: auto; }
+
+/* Démo */
+.demo { background: linear-gradient(180deg, rgba(157,184,154,.10), rgba(157,184,154,.02)); border-block: 1px solid var(--line); }
+.demo .center { gap: 18px; }
+.demo p.lead { color: var(--muted); max-width: 58ch; font-size: 18px; }
+
+/* Résultats */
+.results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
+.res { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+.res .who { font-family: var(--f-mono); font-size: 12px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.res .num { font-family: var(--f-display); font-size: 40px; color: var(--glow); line-height: 1; }
+.res p { color: #D7DED4; font-size: 16px; }
+.stars { color: #F2C94C; letter-spacing: 2px; }
+
+/* Animé par */
+.host { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 40px; align-items: center; margin-top: 36px; }
+.portrait { aspect-ratio: 4 / 5; border-radius: 18px; border: 1px solid var(--line); background: radial-gradient(220px 220px at 50% 35%, rgba(157,184,154,.35), transparent 70%), #0E120E; display: grid; place-items: center; font-family: var(--f-display); font-size: 110px; color: var(--glow); }
+.host p { color: #D7DED4; }
+.host p + p { margin-top: 14px; }
+.kpis { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 22px; }
+.kpis b { font-family: var(--f-display); font-weight: 400; font-size: 36px; color: var(--glow); display: block; line-height: 1; }
+.kpis span { font-size: 13px; color: var(--muted); }
+
+.final { padding-block: 72px 80px; }
+.final .center { gap: 20px; }
+footer { border-top: 1px solid var(--line); padding-block: 28px; color: var(--muted); font-size: 12px; }
+footer .wrap { display: flex; flex-direction: column; gap: 6px; }
+
+/* Fenêtre d'inscription */
+.modal { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.72); display: grid; place-items: center; padding: 16px; }
+.box { width: 100%; max-width: 440px; background: #121612; border: 1px solid var(--line); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; gap: 12px; position: relative; }
+.box h3 { font-family: var(--f-display); font-weight: 400; text-transform: uppercase; font-size: 30px; margin: 0; line-height: 1.05; }
+.box .steps { display: flex; gap: 6px; }
+.box .steps i { flex: 1; height: 4px; border-radius: 4px; background: var(--line); }
+.box .steps i.on { background: var(--glow); }
+.box label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500; }
+.box input { font: inherit; font-size: 16px; padding: 13px 14px; border-radius: 10px; border: 1px solid var(--line); background: #0B0E0B; color: var(--text); }
+.box input:focus { outline: 2px solid var(--glow); outline-offset: 1px; }
+.close { position: absolute; top: 10px; right: 12px; background: none; border: 0; color: var(--muted); font-size: 26px; cursor: pointer; line-height: 1; }
+.note { font-size: 12px; color: var(--muted); text-align: center; }
+.done { background: rgba(157,184,154,.15); border: 1px solid var(--sage); border-radius: 10px; padding: 14px; font-size: 15px; }
+
+
+/* Hero avec photo */
+.hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 44px; align-items: center; text-align: left; }
+.hero-grid .left { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+.hero-grid h1 { max-width: 14ch; font-size: clamp(40px, 6.4vw, 80px); }
+.hero-grid .sans { justify-content: flex-start; }
+.hero-grid .count { justify-content: flex-start; }
+.photo-wrap { position: relative; justify-self: center; width: 100%; max-width: 400px; }
+.photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 22px; border: 1px solid var(--line); box-shadow: 0 40px 90px -30px rgba(157,184,154,.45); display: block; }
+.float { position: absolute; display: flex; align-items: center; gap: 8px; background: rgba(9,11,9,.9); border: 1px solid var(--line); border-radius: 12px; padding: 9px 12px; font-size: 14px; backdrop-filter: blur(6px); white-space: nowrap; }
+.float .ck { width: 18px; height: 18px; border-radius: 50%; background: var(--glow); color: #0A0C0A; display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+.f1 { top: 22px; left: -36px; } .f2 { top: 42%; right: -30px; } .f3 { bottom: 70px; left: -30px; }
+.team-chip { position: absolute; bottom: -18px; right: 18px; display: flex; align-items: center; gap: 10px; background: #0E120E; border: 1px solid rgba(182,227,174,.5); border-radius: 999px; padding: 6px 14px 6px 6px; font-size: 13px; }
+.avs { display: flex; } .avs img { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #0E120E; object-fit: cover; margin-left: -8px; } .avs img:first-child { margin-left: 0; }
+
+/* Histoire */
+.story { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: center; margin-top: 36px; }
+.story-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.story-photos img { width: 100%; aspect-ratio: 3 / 5; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); }
+.story-photos img:nth-child(2) { margin-top: 48px; }
+.steps-story { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--line); }
+.steps-story div { padding: 0 0 22px 22px; position: relative; }
+.steps-story div::before { content: ""; position: absolute; left: -7px; top: 7px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--glow); }
+.steps-story div.hot::before { background: var(--glow); box-shadow: 0 0 14px var(--glow); }
+.steps-story .y { font-family: var(--f-display); font-size: 22px; color: var(--glow); }
+.steps-story p { color: #D7DED4; }
+.quote { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(26px, 3.6vw, 38px); line-height: 1.05; margin-top: 8px; }
+
+/* Équipe */
+.office { width: 100%; max-width: 1000px; border-radius: 20px; border: 1px solid var(--line); margin-top: 32px; display: block; box-shadow: 0 40px 90px -40px rgba(157,184,154,.4); }
+.team { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin-top: 36px; width: 100%; max-width: 1000px; }
+.member { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; text-align: left; }
+.member img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.member div { padding: 12px 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.member b { font-size: 15px; }
+.member span { font-size: 13px; color: var(--muted); line-height: 1.4; }
+.member .on { display: flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 10px; color: var(--glow); letter-spacing: .1em; }
+.member .on::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #6FD37A; }
+
+@media (max-width: 900px) {
+  .hero-grid, .story { grid-template-columns: 1fr; text-align: center; }
+  .hero-grid .left { align-items: center; } .hero-grid .sans, .hero-grid .count { justify-content: center; }
+  .team { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .f1 { left: -8px; } .f2 { right: -8px; } .f3 { left: -8px; }
+}
+@media (max-width: 560px) { .team { grid-template-columns: repeat(2, minmax(0, 1fr)); } .float { font-size: 12px; } .story-photos img:nth-child(2) { margin-top: 24px; } }
+
+@media (max-width: 900px) { .secrets { grid-template-columns: repeat(2, minmax(0, 1fr)); } .results { grid-template-columns: 1fr; } .host { grid-template-columns: 1fr; } .portrait { max-width: 260px; margin: 0 auto; } }
+@media (max-width: 560px) { section { padding-block: 48px; } .secrets { grid-template-columns: 1fr; } .thumb { grid-template-columns: 1fr; } .thumb .panel { display: none; } .count div { min-width: 56px; } .live-tag .long { display: none; } }
+@media (prefers-reduced-motion: reduce) { .dot, .task.run .ck { animation: none; } .cta { transition: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+
+<div class="bar"><div class="wrap">
+  <div class="brand">BSM <b>ACADEMY</b></div>
+  <div class="live-tag mono"><span class="dot" aria-hidden="true"></span><span>Live gratuit<span class="long"> · <span class="js-date">Dimanche 6 décembre</span> · 20 h Paris</span></span></div>
+</div></div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="left">
+      <span class="pill mono">Live 100 % gratuit · E-commerce × IA</span>
+      <h1>Lance ta boutique e‑commerce avec une <span class="hl">équipe d'agents IA</span></h1>
+      <div class="sans">
+        <span>Sans <b>tourner de vidéos</b></span><i>|</i>
+        <span>Sans <b>compétences techniques</b></span><i>|</i>
+        <span>Même avec <b>un travail à côté</b></span>
+      </div>
+      <button class="cta js-open" type="button"><span class="t">» Réserver ma place «</span><span class="s">Événement en ligne 100 % gratuit</span></button>
+      <div class="count" aria-label="Temps restant avant le live">
+        <div><b class="js-d">00</b><span>JOURS</span></div><div><b class="js-h">00</b><span>HEURES</span></div><div><b class="js-m">00</b><span>MIN</span></div><div><b class="js-s">00</b><span>SEC</span></div>
+      </div>
+    </div>
+    <div class="photo-wrap">
+      <img class="photo" src="img/jaouad-laptop.jpg" alt="Jaouad travaille sur son ordinateur au bord de l'eau">
+      <div class="team-chip"><span class="avs"><img src="img/agent-produits.jpg" alt=""><img src="img/agent-pages.jpg" alt=""><img src="img/agent-creas.jpg" alt=""><img src="img/agent-ads.jpg" alt=""></span>Mon équipe IA travaille</div>
+    </div>
+  </div>
+  <div class="wrap center" style="margin-top:44px">
+    <div class="evenif">
+      <div><span class="ok">OK</span><span>Même si tu <b>pars de zéro</b> et que tu n'as jamais vendu en ligne</span></div>
+      <div><span class="ok">OK</span><span>Même si tu n'as <b>pas de gros budget</b> pour commencer</span></div>
+      <div><span class="ok">OK</span><span>Même si tu n'y connais <b>rien en IA</b></span></div>
+    </div>
+  </div>
+</header>
+
+<section style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="center"><span class="mono" style="color:var(--muted)">Mon histoire</span><h2 style="margin-top:8px">J'ai commencé <span class="hl">exactement comme toi</span></h2></div>
+    <div class="story">
+      <div class="story-photos"><img src="img/jaouad-plage.jpg" alt="Jaouad face à la mer"><img src="img/jaouad-mer.jpg" alt="Jaouad au bord de l'eau"></div>
+      <div class="steps-story">
+        <div><span class="y">2020</span><p>Je lance ma première boutique. Pas de méthode, pas de plan. Je teste, je perds de l'argent, je recommence.</p></div>
+        <div class="hot"><span class="y">Le déclic</span><p>Je comprends une chose : il ne faut pas deviner ce que les gens veulent, il faut <b>copier ce qui vend déjà</b>. Premier jour à 1 000 €. Puis 20 000 € en 5 jours.</p></div>
+        <div><span class="y">Aujourd'hui</span><p>Je vis à Dubaï avec ma famille, je pilote plusieurs marques en Europe et j'accompagne des élèves qui font jusqu'à 4 000 € par jour.</p></div>
+        <div class="hot"><span class="y">Et maintenant</span><p>J'ai arrêté de tout faire seul. J'ai monté une équipe qui travaille jour et nuit, et qui ne coûte presque rien.</p><p class="quote">Une équipe <span class="hl">d'agents IA</span>.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap center">
+    <span class="mono" style="color:var(--muted)">Pendant ce live</span>
+    <h2 style="margin-top:8px">Tu vas <span class="hl">découvrir</span></h2>
+    <div class="secrets" style="text-align:left">
+      <div class="secret"><div class="vis">
+        <svg viewBox="0 0 100 70" fill="none" stroke="#B6E3AE" stroke-width="3"><rect x="4" y="6" width="56" height="40" rx="5" fill="#151A15"/><path d="M12 36l10-10 8 6 14-16" /><circle cx="70" cy="44" r="16" fill="#0E120E"/><path d="M81 55l12 12" stroke-linecap="round"/></svg>
+        <span class="num">01</span></div>
+        <p class="txt">Comment je suis passé de <b>zéro à plusieurs marques e-commerce</b>, et pourquoi tu peux le faire aussi, même en partant de rien</p></div>
+      <div class="secret"><div class="vis">
+        <svg viewBox="0 0 100 70" fill="none" stroke="#B6E3AE" stroke-width="3"><rect x="10" y="6" width="80" height="56" rx="6" fill="#151A15"/><path d="M10 18h80"/><rect x="18" y="26" width="28" height="28" rx="3" fill="#0E120E"/><path d="M54 30h28M54 40h22M54 50h16"/></svg>
+        <span class="num">02</span></div>
+        <p class="txt">La méthode pour trouver un produit qui <b>se vend déjà tout seul</b>, avant de dépenser 1 € en pub</p></div>
+      <div class="secret"><div class="vis">
+        <svg viewBox="0 0 100 70" fill="none" stroke="#B6E3AE" stroke-width="3"><rect x="8" y="8" width="84" height="54" rx="6" fill="#151A15"/><path d="M20 50V40M34 50V32M48 50V24M62 50V18M76 50V12" stroke-linecap="round"/></svg>
+        <span class="num">03</span></div>
+        <p class="txt">Comment l'IA remplace <b>une équipe entière</b> : boutique, visuels et pubs prêts en quelques heures, sans compétences techniques</p></div>
+      <div class="secret"><div class="vis">
+        <svg viewBox="0 0 100 70" fill="none" stroke="#B6E3AE" stroke-width="3"><circle cx="50" cy="35" r="11" fill="#151A15"/><circle cx="18" cy="16" r="7" fill="#151A15"/><circle cx="82" cy="16" r="7" fill="#151A15"/><circle cx="18" cy="56" r="7" fill="#151A15"/><circle cx="82" cy="56" r="7" fill="#151A15"/><path d="M24 20l17 9M76 20l-17 9M24 52l17-9M76 52l-17-9"/></svg>
+        <span class="num">04</span></div>
+        <p class="txt">Les <b>3 erreurs qui font échouer</b> la plupart des débutants, et comment les éviter dès ton premier produit</p></div>
+    </div>
+    <div style="margin-top:40px;width:100%;display:flex;justify-content:center"><button class="cta js-open" type="button"><span class="t">» Réserver ma place «</span><span class="s">Événement en ligne 100 % gratuit</span></button></div>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line)">
+  <div class="wrap center">
+    <span class="pill mono">Ce que personne ne te montre</span>
+    <h2 style="margin-top:14px">Mon équipe ne dort <span class="hl">jamais</span></h2>
+    <p style="color:var(--muted);max-width:56ch;margin-top:12px">Chaque agent a un poste, comme dans une vraie entreprise. Moi, je décide. Eux, ils exécutent, 24 h sur 24.</p>
+    <div class="team">
+      <div class="member"><img src="img/agent-produits.jpg" alt=""><div><span class="on">EN LIGNE</span><b>Le chercheur</b><span>Trouve chaque matin les produits qui vendent déjà</span></div></div>
+      <div class="member"><img src="img/agent-pages.jpg" alt=""><div><span class="on">EN LIGNE</span><b>La créatrice</b><span>Crée les pages produit de mes boutiques</span></div></div>
+      <div class="member"><img src="img/agent-creas.jpg" alt=""><div><span class="on">EN LIGNE</span><b>Le monteur</b><span>Prépare les pubs, sans tournage</span></div></div>
+      <div class="member"><img src="img/agent-ads.jpg" alt=""><div><span class="on">EN LIGNE</span><b>Le media buyer</b><span>Surveille les campagnes tous les jours</span></div></div>
+      <div class="member"><img src="img/agent-chef.jpg" alt=""><div><span class="on">EN LIGNE</span><b>Le chef de projet</b><span>Mène chaque lancement jusqu'au bout</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="demo">
+  <div class="wrap narrow center">
+    <span class="pill mono">Pas un cours, une histoire vraie</span>
+    <h2>Ce que j'aurais aimé savoir <span class="hl">en 2020</span></h2>
+    <p class="lead">En une heure, je te raconte comment j'en suis arrivé là, les erreurs qui m'ont coûté cher, et ce que je ferais si je recommençais aujourd'hui, avec l'IA. Tu repars avec des conseils que tu peux appliquer dès le lendemain.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap center">
+    <span class="mono" style="color:var(--muted)">Ils ont appliqué la méthode</span>
+    <h2 style="margin-top:8px">Les résultats de <span class="hl">mes élèves</span></h2>
+    <div class="results" style="text-align:left">
+      <div class="res"><span class="stars">★★★★★</span><span class="num">10 k€ → 50 k€</span><p>de chiffre d'affaires avec le produit trouvé pendant l'accompagnement.</p><span class="who">Elias · élève BSM</span></div>
+      <div class="res"><span class="stars">★★★★★</span><span class="num">4 000 €/jour</span><p>de chiffre d'affaires sur sa boutique, en appliquant la méthode étape par étape.</p><span class="who">Élève BSM</span></div>
+      <div class="res"><span class="stars">★★★★★</span><span class="num">2 000 €/jour</span><p>de chiffre d'affaires après quelques tests, en partant de zéro.</p><span class="who">Élève BSM</span></div>
+    </div>
+    <p class="note" style="margin-top:14px">Résultats individuels, non garantis.</p>
+  </div>
+</section>
+
+<section style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="center"><span class="mono" style="color:var(--muted)">Animé par</span><h2 style="margin-top:8px"><span class="hl">Jaouad</span></h2></div>
+    <div class="host">
+      <img class="portrait" src="img/jaouad-beige.jpg" alt="Jaouad" style="object-fit:cover;object-position:50% 12%;width:100%">
+      <div>
+        <p>Jaouad est e-commerçant depuis 2020. Depuis Dubaï, il pilote plusieurs marques en Europe et a fait jusqu'à <b>20 000 € de chiffre d'affaires en 5 jours</b> sur une seule boutique.</p>
+        <p>Avec BSM Academy, il accompagne des débutants jusqu'à leurs premières journées à plusieurs milliers d'euros. Aujourd'hui, il fait tourner ses boutiques avec une <b>équipe d'agents IA</b>, et c'est ce qu'il te montre pendant ce live.</p>
+        <div class="kpis">
+          <div><b>2020</b><span>en e-commerce</span></div>
+          <div><b>20 k€</b><span>en 5 jours</span></div>
+          <div><b>+ 4 k€/j</b><span>record d'un élève</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap center">
+    <h2><span class="js-date">Dimanche 6 décembre</span> · <span class="hl">20 h</span></h2>
+    <p style="color:var(--muted)">Une heure pour comprendre comment je fais tourner mes marques avec l'IA.</p>
+    <button class="cta js-open" type="button"><span class="t">» Réserver ma place «</span><span class="s">Places limitées · 100 % gratuit</span></button>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <p>Résultats individuels, non garantis : ils dépendent du travail, du budget et du produit de chacun. L'e-commerce comporte un risque de perte d'argent.</p>
+  <p>Ce site ne fait pas partie de Facebook ni de Meta Platforms, Inc. et n'est pas approuvé par Facebook.</p>
+  <p>© 2026 BSM Academy · Mentions légales · CGV · Politique de confidentialité</p>
+</div></footer>
+
+<div class="modal" id="modal" hidden>
+  <form class="box" id="inscription" novalidate>
+    <button class="close" type="button" id="close" aria-label="Fermer">×</button>
+    <div class="steps"><i class="on"></i><i class="on"></i><i></i></div>
+    <span class="mono" style="color:var(--glow)">Étape 2 sur 3 · presque fini</span>
+    <h3>Réserve ta place pour le live</h3>
+    <label for="prenom">Prénom<input id="prenom" autocomplete="given-name" placeholder="Ton prénom"></label>
+    <label for="email">E-mail<input id="email" type="email" autocomplete="email" placeholder="toi@exemple.com"></label>
+    <label for="whatsapp">WhatsApp<input id="whatsapp" type="tel" autocomplete="tel" placeholder="+33 6 12 34 56 78"></label>
+    <button class="cta" type="submit" style="max-width:none"><span class="t">Je réserve ma place</span><span class="s">Le lien t'est envoyé sur WhatsApp</span></button>
+    <p class="note" id="msg">Tes données restent confidentielles.</p>
+  </form>
+</div>
+
+<script>
+// Date du live (heure de Paris). À changer en un seul endroit.
+var LIVE = new Date('2026-12-06T20:00:00+01:00');
+function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+function tick() {
+  var s = Math.max(0, Math.floor((LIVE - Date.now()) / 1000));
+  document.querySelectorAll('.js-d').forEach(function (e) { e.textContent = pad(Math.floor(s / 86400)); });
+  document.querySelectorAll('.js-h').forEach(function (e) { e.textContent = pad(Math.floor(s % 86400 / 3600)); });
+  document.querySelectorAll('.js-m').forEach(function (e) { e.textContent = pad(Math.floor(s % 3600 / 60)); });
+  document.querySelectorAll('.js-s').forEach(function (e) { e.textContent = pad(s % 60); });
+}
+tick(); setInterval(tick, 1000);
+var modal = document.getElementById('modal');
+document.querySelectorAll('.js-open').forEach(function (b) { b.addEventListener('click', function () { modal.hidden = false; document.getElementById('prenom').focus(); }); });
+document.getElementById('close').addEventListener('click', function () { modal.hidden = true; });
+modal.addEventListener('click', function (e) { if (e.target === modal) modal.hidden = true; });
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') modal.hidden = true; });
+document.getElementById('inscription').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var p = document.getElementById('prenom').value.trim(), m = document.getElementById('email').value.trim(), w = document.getElementById('whatsapp').value.trim();
+  var msg = document.getElementById('msg');
+  if (!p || m.indexOf('@') < 1 || w.length < 6) { msg.textContent = 'Remplis ton prénom, un e-mail valide et ton numéro WhatsApp.'; return; }
+  msg.className = 'done';
+  msg.textContent = 'C\'est réservé, ' + p + ' ! Tu reçois le lien du live sur WhatsApp. (Aperçu : sur la vraie page, l\'inscription part vers l\'outil d\'e-mailing.)';
+});
+</script>
+
+</body>
+</html>
