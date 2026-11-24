@@ -111,11 +111,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .demo p.lead { color: var(--muted); max-width: 58ch; font-size: 18px; }
 
 /* Résultats */
-.results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
+.results { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
 .res { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 8px; }
 .res .who { font-family: var(--f-mono); font-size: 12px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
-.res .num { font-family: var(--f-display); font-size: 40px; color: var(--glow); line-height: 1; }
+.res .num { font-family: var(--f-display); font-size: 32px; white-space: nowrap; color: var(--glow); line-height: 1; }
 .res p { color: #D7DED4; font-size: 16px; }
+@media (max-width: 560px) { .results { grid-template-columns: 1fr !important; } }
 .stars { color: #F2C94C; letter-spacing: 2px; }
 
 /* Animé par */
@@ -193,7 +194,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
 }
 @media (max-width: 560px) { .team { grid-template-columns: repeat(2, minmax(0, 1fr)); } .float { font-size: 12px; } .story-photos img:nth-child(2) { margin-top: 24px; } }
 
-@media (max-width: 900px) { .secrets { grid-template-columns: repeat(2, minmax(0, 1fr)); } .results { grid-template-columns: 1fr; } .host { grid-template-columns: 1fr; } .portrait { max-width: 260px; margin: 0 auto; } }
+@media (max-width: 900px) { .secrets { grid-template-columns: repeat(2, minmax(0, 1fr)); } .results { grid-template-columns: repeat(2, minmax(0, 1fr)); } .host { grid-template-columns: 1fr; } .portrait { max-width: 260px; margin: 0 auto; } }
 @media (max-width: 560px) { section { padding-block: 48px; } .secrets { grid-template-columns: 1fr; } .thumb { grid-template-columns: 1fr; } .thumb .panel { display: none; } .count div { min-width: 56px; } .live-tag .long { display: none; } }
 @media (prefers-reduced-motion: reduce) { .dot, .task.run .ck { animation: none; } .cta { transition: none; } html { scroll-behavior: auto; } }
 </style>
@@ -242,8 +243,8 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
       <div class="story-photos"><img src="img/jaouad-bras-croises.jpg" alt="Jaouad, bras croisés"><img src="img/jaouad-dubai-terrasse.jpg" alt="Jaouad travaille sur une terrasse à Dubaï"></div>
       <div class="steps-story">
         <div><span class="y">2020</span><p>Je lance ma première boutique. Pas de méthode, pas de plan. Je teste, je perds de l'argent, je recommence.</p></div>
-        <div class="hot"><span class="y">Le déclic</span><p>Je comprends une chose : il ne faut pas deviner ce que les gens veulent, il faut <b>copier ce qui vend déjà</b>. Premier jour à 1 000 €. Puis 20 000 € en 5 jours.</p></div>
-        <div><span class="y">Aujourd'hui</span><p>Je vis à Dubaï avec ma famille, je pilote plusieurs marques en Europe et j'accompagne des élèves qui font jusqu'à 4 000 € par jour.</p></div>
+        <div class="hot"><span class="y">Le déclic</span><p>Je comprends une chose : il ne faut pas deviner ce que les gens veulent, il faut <b>copier ce qui vend déjà</b>. Premier jour à 1 000 €. Depuis 2020, <b>plusieurs millions d'euros</b> générés.</p></div>
+        <div><span class="y">Aujourd'hui</span><p>Je vis à Dubaï avec ma famille, je pilote plusieurs marques en Europe et j'accompagne des élèves qui font jusqu'à 7 000 € par jour.</p></div>
         <div class="hot"><span class="y">Et maintenant</span><p>J'ai arrêté de tout faire seul. J'ai monté une équipe qui travaille jour et nuit, et qui ne coûte presque rien.</p><p class="quote">Une équipe <span class="hl">d'agents IA</span>.</p></div>
       </div>
     </div>
@@ -304,9 +305,10 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
     <span class="mono" style="color:var(--muted)">Ils ont appliqué la méthode</span>
     <h2 style="margin-top:8px">Les résultats de <span class="hl">mes élèves</span></h2>
     <div class="results" style="text-align:left">
-      <div class="res"><span class="stars">★★★★★</span><span class="num">10 k€ → 50 k€</span><p>de chiffre d'affaires avec le produit trouvé pendant l'accompagnement.</p><span class="who">Elias · élève BSM</span></div>
-      <div class="res"><span class="stars">★★★★★</span><span class="num">4 000 €/jour</span><p>de chiffre d'affaires sur sa boutique, en appliquant la méthode étape par étape.</p><span class="who">Élève BSM</span></div>
-      <div class="res"><span class="stars">★★★★★</span><span class="num">2 000 €/jour</span><p>de chiffre d'affaires après quelques tests, en partant de zéro.</p><span class="who">Élève BSM</span></div>
+      <div class="res"><span class="stars">★★★★★</span><span class="num">+ 300 000 €</span><p>de chiffre d'affaires générés en appliquant la méthode.</p><span class="who">Élève BSM</span></div>
+      <div class="res"><span class="stars">★★★★★</span><span class="num">+ 7 000 €/jour</span><p>de chiffre d'affaires sur sa boutique, étape par étape.</p><span class="who">Élève BSM</span></div>
+      <div class="res"><span class="stars">★★★★★</span><span class="num">50 000 €</span><p>de chiffre d'affaires avec le produit trouvé pendant l'accompagnement.</p><span class="who">Élève BSM</span></div>
+      <div class="res"><span class="stars">★★★★★</span><span class="num">1 000 €/jour</span><p>de chiffre d'affaires après quelques tests, en partant de zéro.</p><span class="who">Élève BSM</span></div>
     </div>
     <p class="note" style="margin-top:14px">Résultats individuels, non garantis.</p>
   </div>
@@ -318,12 +320,13 @@ footer .wrap { display: flex; flex-direction: column; gap: 6px; }
     <div class="host">
       <img class="portrait" src="img/jaouad-macbook.jpg" alt="Jaouad" style="object-fit:cover;object-position:50% 20%;width:100%">
       <div>
-        <p>Jaouad est e-commerçant depuis 2020. Depuis Dubaï, il pilote plusieurs marques en Europe et a fait jusqu'à <b>20 000 € de chiffre d'affaires en 5 jours</b> sur une seule boutique.</p>
+        <p>Jaouad est e-commerçant depuis 2020. Depuis Dubaï, il pilote plusieurs marques en Europe et a généré <b>plusieurs millions d'euros de chiffre d'affaires</b> depuis 2020.</p>
         <p>Avec BSM Academy, il accompagne des débutants jusqu'à leurs premières journées à plusieurs milliers d'euros. Aujourd'hui, il fait tourner ses boutiques avec une <b>équipe d'agents IA</b>, et c'est ce qu'il te montre pendant ce live.</p>
         <div class="kpis">
           <div><b>2020</b><span>en e-commerce</span></div>
-          <div><b>20 k€</b><span>en 5 jours</span></div>
-          <div><b>+ 4 k€/j</b><span>record d'un élève</span></div>
+          <div><b>Millions €</b><span>générés depuis 2020</span></div>
+          <div><b>+ 7 k€/j</b><span>record d'un élève</span></div>
+          <div><b>+ 300 k€</b><span>pour un élève</span></div>
         </div>
       </div>
     </div>
